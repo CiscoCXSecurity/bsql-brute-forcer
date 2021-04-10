@@ -1,0 +1,34 @@
+This perl scripts will allow you to retrieve the result of any arbitrary sql query in  blind sql injection scenarios.
+
+It supports two modes of operation (-type):-
+0. Blind Injection when application returns different responses for True and False cases e.g in integer based injection "index.php?id=1 and 1=1" returns page 1 but "id=1 and 1=2" returns page 2 <Default>
+1. Blind Injection when application returns different responses for true and error cases e.g in integer based injection "index.php?id=1 and 1=1" returns page 1 ALSO "id=1 and 1=2" returns page 1 BUT "id=1';shit-- " returns syntax error
+
+I have described the later condition in more details at:- http://www.notsosecure.com/folder2/2008/05/26/if-query-data-manipulation/
+
+It supports following databases (-database):-
+0. MS-SQL <Default>
+1. MySQl 
+2. Postgres
+3. Oracle 
+
+This is not a click and hack tool, it will only do the job which you tell it to do and it's alwayas good to use the -proxy switch to see what the tool is sending.
+
+Injection in both integer and string fileds is supported, a string based injection must end with a quotes e.g url="http://192.168.1.1/inject.php?id=blah'"
+Custom SQL queries supplied with the switch (-sql) should only return one row. Use the concatenation functions in the sql queries to get more than one columns.
+I recommend the use of -match switch to give the true response which only occurs when condition is true. 
+
+Refer to SQL Injection Cheatsheet http://ferruh.mavituna.com/sql-injection-cheatsheet-oku/, http://pentestmonkey.net/blog/sqlics-managing-users/ for useful queries.
+
+TODO.. 
+1. Add/hardcode More SQL queries, like dumping tables etc.
+2. Add 'waitfor delay' feature in MS-SQL
+3. Add false response match. 
+4. Learn more perl scripting
+
+BUG-FIXES
+report all bugs to sid@notsosecure.com
+Thanks to 514.es
+ 
+KNOWN BUGS
+In some distro's threaded perl seg faults. Works fine under windows with active perl and under debian.
